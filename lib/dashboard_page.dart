@@ -631,7 +631,46 @@ class _LiveInvestingModalState extends State<LiveInvestingModal> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-                            Text('₹${priceData['price']} • 13.8% APY', style: const TextStyle(fontSize: 12, color: Colors.white60)),
+                            Text(
+                              '₹${priceData['price']} • 13.8% APY',
+                              style: const TextStyle(fontSize: 12, color: Colors.white60),
+                            ),
+                            const SizedBox(height: 4),
+                            Builder(
+                              builder: (context) {
+                                String typeLabel;
+                                Color typeColor;
+                                
+                                if (name.contains('Reliance') || name.contains('Tata')) {
+                                  typeLabel = 'STOCK · India';
+                                  typeColor = const Color(0xFF0EA5E9); // blue
+                                } else if (name.contains('Solana') || name.contains('Cardano')) {
+                                  typeLabel = 'CRYPTO · DeFi';
+                                  typeColor = const Color(0xFF7C3AED); // purple
+                                } else if (name.contains('SBI') || name.contains('ESG')) {
+                                  typeLabel = 'FUND · ESG';
+                                  typeColor = const Color(0xFF22C55E); // green
+                                } else if (name.contains('Gold')) {
+                                  typeLabel = 'GOLD · Safe';
+                                  typeColor = const Color(0xFFEAB308); // yellow
+                                } else {
+                                  typeLabel = 'ASSET';
+                                  typeColor = Colors.white54;
+                                }
+                                
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: typeColor.withOpacity(0.15),
+                                  ),
+                                  child: Text(
+                                    typeLabel,
+                                    style: TextStyle(fontSize: 11, color: typeColor, fontWeight: FontWeight.w600),
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
